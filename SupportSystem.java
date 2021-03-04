@@ -39,10 +39,9 @@ public class SupportSystem
         while(!finished) {
             String input = reader.getInput();
 
-            if(input.startsWith("bye")) {
+            if(input.toLowerCase().trim().startsWith("bye")) {
                 finished = true;
-            }
-            else {
+            } else {
                 String response = responder.generateResponse();
                 System.out.println(response);
             }
@@ -69,4 +68,5 @@ public class SupportSystem
     {
         System.out.println("Nice talking to you. Bye...");
     }
+    
 }
