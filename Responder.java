@@ -33,7 +33,7 @@ public class Responder
      */
     public String generateResponse()
     {   
-        int numeroAleat = numero.nextInt(6);
+        int numeroAleat = numero.nextInt(respuestas.size());
         return respuestas.get(numeroAleat);
     }
 }
