@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.ArrayList;
+
 /**
  * This class implements a technical support system. It is the top
  * level class in this project. The support system communicates via
@@ -42,7 +45,7 @@ public class SupportSystem
             if(input.toLowerCase().trim().contains("bye")) {
                 finished = true;
             } else {
-                String response = responder.generateResponse();
+                String response = responder.generateResponse(input);
                 System.out.println(response);
             }
         }
@@ -68,5 +71,4 @@ public class SupportSystem
     {
         System.out.println("Nice talking to you. Bye...");
     }
-    
 }
