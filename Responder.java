@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 /**
  * The responder class represents a response generator object.
  * It is used to generate an automatic response to an input string.
@@ -29,7 +31,7 @@ public class Responder
         respuestas.add("That sounds interesting. Tell me more...");
         respuestasHash = new HashMap<>();
         respuestasHash.put("slow","I think this has to do with your hardware. Upgrading your processor should solve all performance problems. Have you got a problem with our software?");
-        respuestasHash.put("work","If our software doesn't work, try to restart your computer or updating your system's software.");
+        respuestasHash.put("work","If our software doesn't work, try to restart your computer or updating your system's software");
         respuestasHash.put("connect","Be sure you have internet connection, before openning our software. If you open the software without connection, the program won't work at all.");
         respuestasHash.put("device", "That has to do with drivers. If your computer doesn't recognise the device, try to update them.");
     }
@@ -38,15 +40,22 @@ public class Responder
      * Generate a response.
      * @return   A string that should be displayed as the response
      */
-    public String generateResponse(String userInput)
+    public String generateResponse(HashSet<String> userInput)
     {   
-        String aDevolver = "";
-        if (respuestasHash.containsKey(userInput)) {
-            aDevolver = respuestasHash.get(userInput);
-        } else {
-            int numeroAleat = numero.nextInt(respuestas.size());
-            aDevolver = respuestas.get(numeroAleat);
+        String aDevolver = null;
+        Iterator<String> it = userInput.iterator();
+        while (it.hasNext()) {
+            String a = it.next();
+            if (respuestasHash.containsKey(a)) {
+                aDevolver = respuestasHash.get(a);
+                
+            } else {
+                int numeroAleat = numero.nextInt(respuestas.size());
+                aDevolver = respuestas.get(numeroAleat);
+            }
         }
+        
+        
         return aDevolver;
     }
 }
