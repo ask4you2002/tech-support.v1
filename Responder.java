@@ -43,19 +43,16 @@ public class Responder
     public String generateResponse(HashSet<String> userInput)
     {   
         String aDevolver = null;
-        Iterator<String> it = userInput.iterator();
-        while (it.hasNext()) {
-            String a = it.next();
-            if (respuestasHash.containsKey(a)) {
-                aDevolver = respuestasHash.get(a);
-                
+        Iterator<String> inputIterator = userInput.iterator();
+        while (inputIterator.hasNext()) {
+            String nextIteration = inputIterator.next();
+            if (respuestasHash.containsKey(nextIteration)) {
+                aDevolver = respuestasHash.get(nextIteration);
             } else {
                 int numeroAleat = numero.nextInt(respuestas.size());
                 aDevolver = respuestas.get(numeroAleat);
             }
         }
-        
-        
         return aDevolver;
     }
 }
