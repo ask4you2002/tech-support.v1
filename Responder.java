@@ -48,10 +48,11 @@ public class Responder
             String nextIteration = inputIterator.next();
             if (respuestasHash.containsKey(nextIteration)) {
                 aDevolver = respuestasHash.get(nextIteration);
-            } else {
-                int numeroAleat = numero.nextInt(respuestas.size());
-                aDevolver = respuestas.get(numeroAleat);
             }
+        }
+        if (aDevolver == null) {
+            int numeroAleat = numero.nextInt(respuestas.size());
+            aDevolver = respuestas.get(numeroAleat);
         }
         return aDevolver;
     }
