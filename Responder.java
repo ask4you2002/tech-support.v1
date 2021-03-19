@@ -15,8 +15,7 @@ public class Responder
 
     Random numero;
     ArrayList<String> respuestas;
-    HashMap<String, String> respuestasHash;
-    HashMap<HashSet<String>, String> respuestasHash2;
+    HashMap<HashSet<String>, String> respuestasHash;
     /**
      * Construct a Responder - nothing to do
      */
@@ -30,36 +29,50 @@ public class Responder
         respuestas.add("If you have any problem, I'll try my best to help you");
         respuestas.add("I don't understand that...Can you explain more?");
         respuestas.add("That sounds interesting. Tell me more...");
+
         respuestasHash = new HashMap<>();
-        respuestasHash.put("slow","I think this has to do with your hardware. Upgrading your processor should solve all performance problems. Have you got a problem with our software?");
-        respuestasHash.put("work","If our software doesn't work, try to restart your computer or updating your system's software");
-        respuestasHash.put("connect","Be sure you have internet connection, before openning our software. If you open the software without connection, the program won't work at all.");
-        respuestasHash.put("device", "That has to do with drivers. If your computer doesn't recognise the device, try to update them.");
 
-        respuestasHash2 = new HashMap<>();
+        HashSet<String> respSimple1,respSimple2,respSimple3,respSimple4;
 
-        HashSet<String> resp1 = new HashSet<>();
-        HashSet<String> resp2 = new HashSet<>();
-        HashSet<String> resp3 = new HashSet<>();
-        HashSet<String> resp4 = new HashSet<>();
+        respSimple1 = new HashSet<>();
+        respSimple2 = new HashSet<>();
+        respSimple3 = new HashSet<>();
+        respSimple4 = new HashSet<>();
 
-        resp1.add("free");
-        resp1.add("app");
+        respSimple1.add("slow");
+        respSimple2.add("work");
+        respSimple3.add("stuck");
+        respSimple4.add("device");
 
-        resp2.add("problem");
-        resp2.add("linux");
-        resp2.add("crash");
+        respuestasHash.put(respSimple1,"I think this has to do with your hardware. Upgrading your processor should solve all performance problems. Have you got a problem with our software?");
+        respuestasHash.put(respSimple2,"If our software doesn't work, try to restart your computer or updating your system's software");
+        respuestasHash.put(respSimple3,"Our software runs many processes when you open the app. If it's stucked, wait a short time: closing the app might break the files.");
+        respuestasHash.put(respSimple4,"That has to do with drivers. If your computer doesn't recognise the device, try to update them.");
 
-        resp3.add("input");
-        resp3.add("device");
+        HashSet<String> respCompleja1 = new HashSet<>();
+        HashSet<String> respCompleja2 = new HashSet<>();
+        HashSet<String> respCompleja3 = new HashSet<>();
+        HashSet<String> respCompleja4 = new HashSet<>();
 
-        resp4.add("internet");
-        resp4.add("connection");
+        respCompleja1.add("free");
+        respCompleja1.add("app");
 
-        respuestasHash2.put(resp1, "The app is free. Although, you can pay for the extra version.");
-        respuestasHash2.put(resp2, "Our software is not supportedd for Linux OS.");
-        respuestasHash2.put(resp3, "Be sure the cable you are using works correctly, and update your drivers.");
-        respuestasHash2.put(resp4, "Our app doesnt work without internet connection. Be sure to be connected to an internet connection before openning it.");
+        respCompleja2.add("problem");
+        respCompleja2.add("linux");
+        respCompleja2.add("crash");
+
+        respCompleja3.add("input");
+        respCompleja3.add("device");
+
+        respCompleja4.add("internet");
+        respCompleja4.add("connection");
+
+        respuestasHash.put(respCompleja1, "The app is free. Although, you can pay for the extra version.");
+        respuestasHash.put(respCompleja2, "Our software is not supportedd for Linux OS.");
+        respuestasHash.put(respCompleja3, "Be sure the cable you are using works correctly, and update your drivers.");
+        respuestasHash.put(respCompleja4, "Our app doesnt work without internet connection. Be sure to be connected to an internet connection before openning it.");
+
+       
     }
 
     /**
@@ -70,16 +83,10 @@ public class Responder
     {   
         String aDevolver = null;
         Iterator<String> inputIterator = userInput.iterator();
-        while (inputIterator.hasNext()) {
-            String nextIteration = inputIterator.next();
-            if (respuestasHash.containsKey(nextIteration)) {
-                aDevolver = respuestasHash.get(nextIteration);
-            }
-        }
-        if (respuestasHash2.containsKey(userInput)) {
-            aDevolver = respuestasHash2.get(userInput);
-        }
-        if (aDevolver == null) {
+
+        if (respuestasHash.containsKey(userInput)) {
+            aDevolver = respuestasHash.get(userInput);
+        } else {
             int numeroAleat = numero.nextInt(respuestas.size());
             aDevolver = respuestas.get(numeroAleat);
         }
