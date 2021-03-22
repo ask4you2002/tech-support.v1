@@ -29,6 +29,7 @@ public class Responder
         respuestas.add("If you have any problem, I'll try my best to help you");
         respuestas.add("I don't understand that...Can you explain more?");
         respuestas.add("That sounds interesting. Tell me more...");
+        respuestas.add("Did you get error 101?");
 
         respuestasHash = new HashMap<>();
 
@@ -53,6 +54,8 @@ public class Responder
         HashSet<String> respCompleja2 = new HashSet<>();
         HashSet<String> respCompleja3 = new HashSet<>();
         HashSet<String> respCompleja4 = new HashSet<>();
+        HashSet<String> respCompleja5 = new HashSet<>();
+        HashSet<String> respCompleja6 = new HashSet<>();
 
         respCompleja1.add("free");
         respCompleja1.add("app");
@@ -64,15 +67,24 @@ public class Responder
         respCompleja3.add("input");
         respCompleja3.add("device");
 
-        respCompleja4.add("internet");
-        respCompleja4.add("connection");
+        respCompleja4.add("problem");
+        respCompleja4.add("corrupt");
+        respCompleja4.add("windows");
+
+        respCompleja5.add("error");
+        respCompleja5.add("code");
+
+        respCompleja6.add("error");
+        respCompleja6.add("code");
+        respCompleja6.add("101");
 
         respuestasHash.put(respCompleja1, "The app is free. Although, you can pay for the extra version.");
         respuestasHash.put(respCompleja2, "Our software is not supportedd for Linux OS.");
         respuestasHash.put(respCompleja3, "Be sure the cable you are using works correctly, and update your drivers.");
         respuestasHash.put(respCompleja4, "Our app doesnt work without internet connection. Be sure to be connected to an internet connection before openning it.");
+        respuestasHash.put(respCompleja5, "Did you get a code or error message? Can you tell me what number?(101,140,192..))");
+        respuestasHash.put(respCompleja6, "Error code 101 occurs when the app has been closed when loading. Delete a file from appdata/config called logfile.cmd.");
 
-       
     }
 
     /**
@@ -82,13 +94,24 @@ public class Responder
     public String generateResponse(HashSet<String> userInput)
     {   
         String aDevolver = null;
-        Iterator<String> inputIterator = userInput.iterator();
-
-        if (respuestasHash.containsKey(userInput)) {
-            aDevolver = respuestasHash.get(userInput);
-        } else {
-            int numeroAleat = numero.nextInt(respuestas.size());
-            aDevolver = respuestas.get(numeroAleat);
+        int contador = 0;
+        int minimo = 0;
+        Iterator<HashSet<String>> respuestasIterated = respuestasHash.keySet().iterator();
+        while (respuestasIterated.hasNext()){
+            HashSet<String> respHash = respuestasIterated.next();
+            for (String key : respHash){
+                if(userInput.contains(key)){                   
+                    contador++;                                   
+                }  
+            }
+            if (contador > minimo){
+                aDevolver = respuestasHash.get(respHash);
+                minimo = contador;
+            }              
+            else if(minimo == 0) {
+                aDevolver = respuestas.get(numero.nextInt(respuestas.size()));
+            }
+            contador = 0;
         }
         return aDevolver;
     }
