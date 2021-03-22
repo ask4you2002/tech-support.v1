@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +14,10 @@ import java.util.Iterator;
 public class Responder
 {
 
-    Random numero;
+    private Random numero;
     ArrayList<String> respuestas;
     HashMap<HashSet<String>, String> respuestasHash;
+    private String respuestaMemoria;
     /**
      * Construct a Responder - nothing to do
      */
@@ -23,6 +25,7 @@ public class Responder
     {
         numero = new Random();
         respuestas = new ArrayList<String>();
+        respuestaMemoria = null;
         respuestas.add("Do you need help?");
         respuestas.add("I'll help you with that");
         respuestas.add("Hi. I'm the Tech Support. Do you have any problem with our product?");
@@ -96,7 +99,9 @@ public class Responder
         String aDevolver = null;
         int contador = 0;
         int minimo = 0;
+        
         Iterator<HashSet<String>> respuestasIterated = respuestasHash.keySet().iterator();
+        
         while (respuestasIterated.hasNext()){
             HashSet<String> respHash = respuestasIterated.next();
             for (String key : respHash){
@@ -111,9 +116,11 @@ public class Responder
             
             contador = 0;
         }
-        if (minimo == 0){
+           
+        if (minimo == 0 || respuestaMemoria == aDevolver){
             aDevolver = respuestas.get(numero.nextInt(respuestas.size()));
         }
+        respuestaMemoria = aDevolver; 
         return aDevolver;
     }
 }
