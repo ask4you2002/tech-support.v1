@@ -108,10 +108,11 @@ public class Responder
                 aDevolver = respuestasHash.get(respHash);
                 minimo = contador;
             }              
-            else if(minimo == 0) {
-                aDevolver = respuestas.get(numero.nextInt(respuestas.size()));
-            }
+            
             contador = 0;
+        }
+        if (minimo == 0){
+            aDevolver = respuestas.get(numero.nextInt(respuestas.size()));
         }
         return aDevolver;
     }
